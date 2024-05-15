@@ -1,7 +1,7 @@
 // initializing Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAeYLGQoI_WiHLOfl8ECzmnGXv4m_11Ids",
     authDomain: "skule-ca.firebaseapp.com",
@@ -28,10 +28,10 @@ console.log(actionCodeSettings);
 const form = document.getElementById('login-form');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    var formData = new FormData(form);
+    var email = formData.get('email');
     document.getElementById('login-form-email').disabled = true;
     document.getElementById('login-form-submit').className = "button is-link is-loading";
-    var formData = new FormData(event.target);
-    var email = formData.get('email');
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
         .then(() => {
             window.localStorage.setItem('emailForSignIn', email);
