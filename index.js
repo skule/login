@@ -22,6 +22,7 @@ const actionCodeSettings = {
     // This must be true email link sign-in
     handleCodeInApp: true
 };
+console.log(actionCodeSettings);
 
 // handle the form submission
 const form = document.getElementById('login-form');
@@ -42,6 +43,7 @@ form.addEventListener('submit', (event) => {
             document.getElementById('response-message').className = "message is-danger";
             document.getElementById('response-message-header').innerHTML = "Error";
             document.getElementById('response-message-body').innerHTML = error;
+            console.log(error);
         });
 });
 
