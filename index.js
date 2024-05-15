@@ -2,27 +2,20 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyAeYLGQoI_WiHLOfl8ECzmnGXv4m_11Ids",
-    authDomain: "skule-ca.firebaseapp.com",
-    projectId: "skule-ca",
-    storageBucket: "skule-ca.appspot.com",
-    messagingSenderId: "835757294370",
-    appId: "1:835757294370:web:0628ddbd27de0259199b7b",
-    measurementId: "G-Q83KN6Q5SY"
-};
+
+// requires firebaseConfig to be placed correctly in root of the main project
+import { firebaseConfig } from "../firebaseConfig.js";
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 const actionCodeSettings = {
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be in the authorized domains list in the Firebase Console.
-    url: window.location.href, // redirect back to this page
-    // This must be true email link sign-in
+    // URL you want to redirect back to. The domain for this URL must be in the authorized domains list in the Firebase Console.
+    url: window.location.href, // redirect back to this login page, keep the redirect query string
+    // This must be true for email link sign-in
     handleCodeInApp: true
 };
-console.log(actionCodeSettings);
 
 // handle the form submission
 const form = document.getElementById('login-form');
