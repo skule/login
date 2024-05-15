@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Skule™ Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <h1>Skule™ Login</h1>
+    <p>Sign in with your @mail.utoronto.ca email address to access Skule™ resources.</p>
+    <p class="is-italic">Administrators, please sign in with your @skule.ca email address to access administrator
+        functions.</p>
+
+    <form id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Sign in</button>
+    </form>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        import { getAuth, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAeYLGQoI_WiHLOfl8ECzmnGXv4m_11Ids",
+            authDomain: "skule-ca.firebaseapp.com",
+            projectId: "skule-ca",
+            storageBucket: "skule-ca.appspot.com",
+            messagingSenderId: "835757294370",
+            appId: "1:835757294370:web:0628ddbd27de0259199b7b",
+            measurementId: "G-Q83KN6Q5SY"
+        };
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // get the redirect URL from the query
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+        const actionCodeSettings = {
+            // URL you want to redirect back to. The domain (www.example.com) for this
+            // URL must be in the authorized domains list in the Firebase Console.
+            url: redirect,
+            // This must be true email link sign-in
+            handleCodeInApp: true
+        };
+
+        // handle the form submission
+        const form = document.getElementById('login-form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            sendSignInLinkToEmail(auth, email, actionCodeSettings)
+                .then(() => {
+                    console.log('Email sent');
+                })
+                .catch((error) => {
+                    // Some error occurred, you can inspect the code: error.code
+                    console.error(error);
+                });
+        });
+
+    </script>
+
+</body>
+
+</html>
