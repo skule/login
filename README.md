@@ -1,6 +1,6 @@
 # login.skule.ca
 
-Centralized login page for all EngSoc services, including courses.skule.ca.
+Standardized login page for all EngSoc services, including courses.skule.ca.
 
 Supports:
 - email link authentication (used to enforce student access)
