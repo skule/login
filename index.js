@@ -30,7 +30,7 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
     document.getElementById('login-form-email').disabled = true;
     document.getElementById('login-form-submit').className = "button is-link is-loading";
-    var formData = new FormData(form);
+    var formData = new FormData(event.target);
     var email = formData.get('email');
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
         .then(() => {
