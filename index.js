@@ -18,7 +18,7 @@ const auth = getAuth(app);
 const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.
-    url: window.location, // redirect back to this page
+    url: window.location.href, // redirect back to this page
     // This must be true email link sign-in
     handleCodeInApp: true
 };
@@ -38,12 +38,16 @@ form.addEventListener('submit', (event) => {
             document.getElementById('response-message').className = "message is-success";
             document.getElementById('response-message-header').innerHTML = "Success";
             document.getElementById('response-message-body').innerHTML = "An email has been sent to you with a link to sign in. Please check your email.";
+            document.getElementById('login-form-email').disabled = false;
+            document.getElementById('login-form-submit').className = "button is-link";
         })
         .catch((error) => {
             document.getElementById('response-message').className = "message is-danger";
             document.getElementById('response-message-header').innerHTML = "Error";
             document.getElementById('response-message-body').innerHTML = error;
-            console.log(error);
+            document.getElementById('login-form-email').disabled = false;
+            document.getElementById('login-form-submit').className = "button is-link";
+            //console.log(error);
         });
 });
 
@@ -63,15 +67,19 @@ if (isSignInWithEmailLink(auth, window.location.href)) {
             document.getElementById('response-message').className = "message is-success";
             document.getElementById('response-message-header').innerHTML = "Welcome" + result.user.email;
             document.getElementById('response-message-body').innerHTML = "You have signed in successfully. You will be redirected to the page you were trying to access shortly.";
+            document.getElementById('login-form-email').disabled = false;
+            document.getElementById('login-form-submit').className = "button is-link";
             // get url from query string gotten from window.location.search, tag is redirect
             const urlParams = new URLSearchParams(window.location.search);
             const redirect = urlParams.get('redirect');
-            window.location = redirect ? redirect : '/';
+            window.location.replace(redirect ? redirect : '/');
         })
         .catch((error) => {
             document.getElementById('response-message').className = "message is-danger";
             document.getElementById('response-message-header').innerHTML = "Error";
             document.getElementById('response-message-body').innerHTML = error;
+            document.getElementById('login-form-email').disabled = false;
+            document.getElementById('login-form-submit').className = "button is-link";
         });
 }
 
