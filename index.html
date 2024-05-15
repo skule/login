@@ -9,61 +9,47 @@
 
 <body>
 
-    <h1>Skule™ Login</h1>
-    <p>Sign in with your @mail.utoronto.ca email address to access Skule™ resources.</p>
-    <p class="is-italic">Administrators, please sign in with your @skule.ca email address to access administrator
-        functions.</p>
+    <div class="section container">
 
-    <form id="login-form">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <button type="submit">Sign in</button>
-    </form>
+        <p class="title">Skule™ Login</p>
+        <p class="subtitle">Sign in with your <b>@mail.utoronto.ca</b> email address to access Skule™ resources.</p>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-        import { getAuth, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        const firebaseConfig = {
-            apiKey: "AIzaSyAeYLGQoI_WiHLOfl8ECzmnGXv4m_11Ids",
-            authDomain: "skule-ca.firebaseapp.com",
-            projectId: "skule-ca",
-            storageBucket: "skule-ca.appspot.com",
-            messagingSenderId: "835757294370",
-            appId: "1:835757294370:web:0628ddbd27de0259199b7b",
-            measurementId: "G-Q83KN6Q5SY"
-        };
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
+        <div class="block">
+            <form id="login-form">
+                <div class="field has-addons">
+                    <div class="control is-expanded has-icons-left">
+                        <input placeholder="Email" id="login-form-email" class="input" type="email" required>
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                    </div>
+                    <div class="control">
+                        <button id="login-form-submit" class="button is-link" type="submit">
+                            <span>Sign in</span>
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-send"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-        // get the redirect URL from the query
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirect = urlParams.get('redirect');
-        const actionCodeSettings = {
-            // URL you want to redirect back to. The domain (www.example.com) for this
-            // URL must be in the authorized domains list in the Firebase Console.
-            url: redirect,
-            // This must be true email link sign-in
-            handleCodeInApp: true
-        };
+        <article id="response-message" class="message is-hidden">
+            <div class="message-header">
+                <p id="response-message-header"></p>
+                <button class="delete" aria-label="delete"></button>
+            </div>
+            <div id="response-message-body" class="message-body">
+            </div>
+        </article>
 
-        // handle the form submission
-        const form = document.getElementById('login-form');
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            sendSignInLinkToEmail(auth, email, actionCodeSettings)
-                .then(() => {
-                    console.log('Email sent');
-                })
-                .catch((error) => {
-                    // Some error occurred, you can inspect the code: error.code
-                    console.error(error);
-                });
-        });
+    </div>
 
-    </script>
+    <button class="theme-switcher button is-warning"
+        onclick="document.documentElement.className=(document.documentElement.className=='theme-dark'?'theme-light':'theme-dark')">☀</button>
+
+    <script type="module" src="index.js"></script>
 
 </body>
 
