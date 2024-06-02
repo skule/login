@@ -1,4 +1,4 @@
-# login.skule.ca
+# login
 
 Standardized login page for all EngSoc services, including courses.skule.ca.
 
